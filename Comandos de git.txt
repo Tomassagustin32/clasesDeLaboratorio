@@ -7,15 +7,15 @@ git init
 -segundo caso
   cuando trabajo con un repositorio web
 
-PASOS A SEGUIR PARA CADA COMMIT
-
-  git clone repositorio
-
 PARA SUBIR UN REPOSITORIO A LA WEB 
 
-  git push origin
+  git push origin master
+
+PASOS PARA CADA COMMIT
 
 1) git status
 2) git add .
 3) git commit -m "mensaje"
+
+
   
