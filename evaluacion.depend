@@ -1,0 +1,30 @@
+# depslib dependency file v1.0
+1538490406 source:d:\martinez tomas\evaluacion\evaluacion\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"peliculas.h"
+	"utn.h"
+
+1538490547 d:\martinez tomas\evaluacion\evaluacion\peliculas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+
+1538486122 d:\martinez tomas\evaluacion\evaluacion\utn.h
+
+1538487264 source:d:\martinez tomas\evaluacion\evaluacion\peliculas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"peliculas.h"
+
+1538486187 source:d:\martinez tomas\evaluacion\evaluacion\utn.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+
