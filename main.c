@@ -1,90 +1,138 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <conio.h>
-#include "peliculas.h"
-#include "utn.h"
-#define MAX 1000
+#include "bibliotecaParcial.h"
+#include "bibliotecaGetsYComprobaciones.h"
 
 int main()
 {
-    char seguir = 's';
-    int flag=0;
-    int lugarLibre;
-    int id;
-    char titulo[40];
-    char nacionalidad[20];
-    int anio;
-    char director [40];
+    ePelicula listaPelicula[TAM_PELICULA];
+    eDirector listaDirector[TAM_DIRECTOR];
     int opcion;
-
-    ePelicula peliculas[MAX];
-    eDirector directores[MAX];
+    int peliculaMain;
+    int directorMain;
+    int agregarPeliculasMain;
+    int borrarPeliculasMain;
+    int flagCargada = 1;
+    int modificarPeliculaMain;
+    int agregarPeliculasMainDirec;
+    int borrarPeliculasMainDirec;
 
     do
     {
-        printf("-----OPCIONES-----\n\n");
-        printf("1. ALTA\n");
-        printf("2. MODIFICAR\n");
-        printf("3. BAJA\n");
-        printf("4. INFORMAR\n");
-        printf("5. SALIR\n");
-        printf("ELIJA UNA OPCION: ");
-        fflush(stdin);
-        scanf("%d", &opcion);
+        peliculaMain = inicializarPelicula(listaPelicula, TAM_PELICULA);
+        directorMain = inicializarDirector(listaDirector, TAM_DIRECTOR);
+        inicializarHardcodeoPeliculas(listaPelicula);
+        inicializarDirectortorHardCode(listaDirector);
+    }while(peliculaMain == -1 || directorMain == -1);
+
+    do
+    {
+        opcion = getIntOnly("Ficha tecnica\n\n1.ALTAS PELICULAS\n2.MODIFICAR DATOS DE UNA PELICULA\n3.BAJA DE PELICULA\n4.NUEVO DIRECTOR\n5.ELIMINAR DIRECTOR\n6.LISTAR\n7.SALIR\nIngrese una opcion: ");
 
         switch(opcion)
         {
+        case 1://nueva pelicula
+            agregarPeliculasMain = agregarPeliculas(listaPelicula, listaDirector);
+                if(agregarPeliculasMain == 0)
+                {
+                    flagCargada = 1;
+                    system("cls");
+                    printf("\nSe cargo correctamente.\n");
+                }
+            break;
+        case 2://modificar
+                if(flagCargada != 1)
+                {
+                    system("cls");
+                    printf("\n\nAun no se han cargado peliculas.\n");
+                    break;
+                }
+                modificarPeliculaMain = modificarPelicula(listaPelicula);
+                if(modificarPeliculaMain == 0)
+                {
+                    system("cls");
+                    printf("\nSe modifico correctamente.\n");
+                }
+                 else
+                {
+                    system("cls");
+                    printf("\n No se ha podido modificar el empleado.\n");
+                }
+            break;
+        case 3://baja
+            if(flagCargada != 1)
+                {
+                    system("cls");
+                    printf("\n\nAun no se han cargado empleados.\n");
+                    break;
+                }
+               borrarPeliculasMain = borrarPelicula(listaPelicula, TAM_PELICULA);
+               if(borrarPeliculasMain == 0)
+                {
+                    system("cls");
+                    printf("\nSe dio de baja correctamente.\n");
+                }
+                else
+                {
+                    system("cls");
+                    printf("\n No se ha podido dar de baja la pelicula.\n");
+                }
+            break;
+        case 4: //nuevo director
+                agregarPeliculasMainDirec = agregarDirector(listaDirector);
+                if(agregarPeliculasMainDirec == 0)
+                {
+                    flagCargada = 1;
+                    system("cls");
+                    printf("\nSe cargo correctamente.\n");
+                }
+            break;
+        case 5: //elminar director
+                borrarPeliculasMainDirec = borrarDirector(listaDirector, TAM_DIRECTOR);
+               if(borrarPeliculasMainDirec == 0)
+                {
+                    system("cls");
+                    printf("\nSe dio de baja correctamente.\n");
+                }
+                else
+                {
+                    system("cls");
+                    printf("\n No se ha podido dar de baja el director.\n");
+                }
 
-        case 1:
-            flag=1;
-            lugarLibre=buscarLibre(peliculas, MAX);
-            if(lugarLibre!= -1)
+            break;
+        case 6:
+            if(flagCargada != 1)
+                {
+                    system("cls");
+                    printf("\n\nAun no se han cargado peliculas.\n");
+                    break;
+                }
+            listar(listaPelicula, TAM_PELICULA, listaDirector, TAM_DIRECTOR);
+            break;
+
+            /*if(flagCargada != 1)
             {
-
-                getValidString("Ingrese nacionalidad: ", "No VALIDO. Ingrese nuevamente: \n", nacionalidad);
-                getValidString("Ingrese titulo: ", "No valido. Ingrese nuevamente: \n", titulo);
-                anio=getValidInt("Ingrese anio: ","No valido. Ingrese nuevamente \n", 0, 1000000);
-                getValidString("Ingrese director: ","No valido. Ingrese nuevamente \n", director);
-                id=getValidInt("Ingrese el id: ", "No valido. Ingrese nuevamente \n", 0, 1000000);
-                agregarPelicula(peliculas, MAX, nacionalidad, titulo, anio, id);
-
-            }
-            else
-            {
-                printf("Aun no hay datos para mostrar\n");
-                system("pause");
                 system("cls");
+                printf("\n\nAun no se han cargado peliculas.\n");
+                break;
             }
+            peliculaMasVieja(listaPelicula, TAM_PELICULA);
+        case 12:
+                    system("cls");
+                    calculaPrecio(prod, cantidad, opcion, prov);
+                    break;*/
 
+
+        case 7:
+            opcion = 8;
             break;
-
-        case 4:
-            if(flag == 0)
-            {
-                printf("Aun no hay datos para mostrar\n");
-            }
-            else
-            {
-                mostrarPeliculas(, len);
-            }
-
-            system("pause");
+        default:
             system("cls");
-            break;
-        case 5:
-            seguir='n';
-            break;
-        default :
-            printf("Error. Dato no valido\n");
-            system("pause");
-            system("cls");
+            printf("No es una opcion valida.");
         }
-
-
-    }while(seguir == 's');
-
+        system("pause");
+        system("cls");
+    }while(opcion != 8);
     return 0;
 }
-
-
